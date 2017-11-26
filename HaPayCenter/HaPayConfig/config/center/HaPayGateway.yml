@@ -1,0 +1,30 @@
+server:
+  port: 8005
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+
+  routes:
+    HaPayApi:
+        path: /api/**
+        serviceId: HaPayApi
+    HaPayWxService:
+        path: /notify/**
+        serviceId: HaPayWxService
+logging:
+  file: ./logs/HaPayGateWay.log

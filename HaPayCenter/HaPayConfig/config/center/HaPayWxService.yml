@@ -1,0 +1,9 @@
+server:
+  port: 8002
+
+spring:
+  profiles:
+     active: test
+
+logging:
+  file: ./logs/HaPayWxService.log

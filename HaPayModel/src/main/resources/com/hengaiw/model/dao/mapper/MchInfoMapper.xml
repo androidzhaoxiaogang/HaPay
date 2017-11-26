@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hengaiw.model.dao.mapper.MchInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hengaiw.model.dao.model.MchInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="MchId" jdbcType="CHAR" property="mchId" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Type" jdbcType="VARCHAR" property="type" />
+    <result column="State" jdbcType="TINYINT" property="state" />
+    <result column="CreateTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UpdateTime" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hengaiw.model.dao.model.MchInfo">
+    <result column="ReqKey" jdbcType="LONGVARCHAR" property="reqKey" />
+    <result column="ResKey" jdbcType="LONGVARCHAR" property="resKey" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, MchId, Name, Type, State, CreateTime, UpdateTime
+  </sql>
+  <sql id="Blob_Column_List">
+    ReqKey, ResKey
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hengaiw.model.dao.model.MchInfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_mch_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hengaiw.model.dao.model.MchInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ha_mch_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_mch_info
+    where id = #{id,jdbcType=INTEGER}
+      and MchId = #{mchId,jdbcType=CHAR}
+  </select>
+   <select id="selectByMchId" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ha_mch_info
+    where MchId = #{mchId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from ha_mch_info
+    where id = #{id,jdbcType=INTEGER}
+      and MchId = #{mchId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hengaiw.model.dao.model.MchInfoExample">
+    delete from ha_mch_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hengaiw.model.dao.model.MchInfo">
+    insert into ha_mch_info (id, MchId, Name, 
+      Type, State, CreateTime, 
+      UpdateTime, ReqKey, ResKey
+      )
+    values (#{id,jdbcType=INTEGER}, #{mchId,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{reqKey,jdbcType=LONGVARCHAR}, #{resKey,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hengaiw.model.dao.model.MchInfo">
+    insert into ha_mch_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mchId != null">
+        MchId,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="state != null">
+        State,
+      </if>
+      <if test="createTime != null">
+        CreateTime,
+      </if>
+      <if test="updateTime != null">
+        UpdateTime,
+      </if>
+      <if test="reqKey != null">
+        ReqKey,
+      </if>
+      <if test="resKey != null">
+        ResKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mchId != null">
+        #{mchId,jdbcType=CHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqKey != null">
+        #{reqKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="resKey != null">
+        #{resKey,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hengaiw.model.dao.model.MchInfoExample" resultType="java.lang.Long">
+    select count(*) from ha_mch_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ha_mch_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mchId != null">
+        MchId = #{record.mchId,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        Type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        CreateTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UpdateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.reqKey != null">
+        ReqKey = #{record.reqKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.resKey != null">
+        ResKey = #{record.resKey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ha_mch_info
+    set id = #{record.id,jdbcType=INTEGER},
+      MchId = #{record.mchId,jdbcType=CHAR},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Type = #{record.type,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT},
+      CreateTime = #{record.createTime,jdbcType=TIMESTAMP},
+      UpdateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      ReqKey = #{record.reqKey,jdbcType=LONGVARCHAR},
+      ResKey = #{record.resKey,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ha_mch_info
+    set id = #{record.id,jdbcType=INTEGER},
+      MchId = #{record.mchId,jdbcType=CHAR},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Type = #{record.type,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT},
+      CreateTime = #{record.createTime,jdbcType=TIMESTAMP},
+      UpdateTime = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hengaiw.model.dao.model.MchInfo">
+    update ha_mch_info
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        State = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reqKey != null">
+        ReqKey = #{reqKey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="resKey != null">
+        ResKey = #{resKey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and MchId = #{mchId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hengaiw.model.dao.model.MchInfo">
+    update ha_mch_info
+    set Name = #{name,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updateTime,jdbcType=TIMESTAMP},
+      ReqKey = #{reqKey,jdbcType=LONGVARCHAR},
+      ResKey = #{resKey,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and MchId = #{mchId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hengaiw.model.dao.model.MchInfo">
+    update ha_mch_info
+    set Name = #{name,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT},
+      CreateTime = #{createTime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and MchId = #{mchId,jdbcType=CHAR}
+  </update>
+</mapper>
