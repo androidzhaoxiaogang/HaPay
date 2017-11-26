@@ -1,0 +1,1 @@
+HaPay聚合支付使用Java开发，使用spring-cloud分布式架构，已接入微信、支付宝等主流支付渠道，可直接用于生产环境，目前实现基于spring cloud架构，微信原生SDK实现的扫码支付流程。 有问题请联系： 演示地址：https://www.my425500.com/pay/openQrPay.html QQ群：469779247 官方网站:htttp://www.hengaiw.com 开发计划： 1、完善微信的其他支付方式。 2、接入支付宝 3、完善退款和对帐功能 
